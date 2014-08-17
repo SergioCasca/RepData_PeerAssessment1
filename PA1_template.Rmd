@@ -67,6 +67,8 @@ ds <- ddply(dataset, .(date), transform, totalstepsday = sum(steps, na.rm=T))
 # using transform so I will use complete.cases() function
 ds <- ds[complete.cases(ds),]
 bin_width <- round(range(ds$totalstepsday) / 30)[2]
+
+# open connection
 ggplot(ds) + 
     geom_histogram(aes(x = totalstepsday),colour = "darkgreen", fill = "white", binwidth = bin_width)  +
     xlab(label = 'Steps') +
