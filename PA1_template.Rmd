@@ -7,6 +7,9 @@ library(xtable)
 library(plyr)
 library(ggplot2)
 library(scales)
+
+options(scipen=999)
+
 ```
 
 Set global settings for this assignment
@@ -60,6 +63,9 @@ dataset$date <- as.POSIXct(dataset$date, format = '%Y-%m-%d')
 
 ```{r, warning=FALSE}
 ds <- ddply(dataset, .(date), transform, totalstepsday = sum(steps, na.rm=T))
+
+# using transform so I will use complete.cases() function
+ds <- ds[complete.cases(ds),]
 bin_width <- round(range(ds$totalstepsday) / 30)[2]
 ggplot(ds) + 
     geom_histogram(aes(x = totalstepsday),colour = "darkgreen", fill = "white", binwidth = bin_width)  +
@@ -72,7 +78,7 @@ mean_total_steps_per_day <- mean(ds$totalstepsday, na.rm = T)
 median_total_steps_per_day <- median(ds$totalstepsday, na.rm = T)
 ```
 
-The mean of the total number of steps taken per day is `r round(mean_total_steps_per_day,digits=2)` and the median is `r round(median_total_steps_per_day,digits=2)`.  
+The **mean** of the total number of steps taken per day is `r round(mean_total_steps_per_day,digits=2)` and the median is `r round(median_total_steps_per_day,digits=2)`.  
 
 ## What is the average daily activity pattern?
 ```{r}
@@ -84,7 +90,7 @@ ggplot(data =  ds_steps_per_interval) +
 int_maximum_number_steps <- ds_steps_per_interval[ ds_steps_per_interval$steps == max(ds_steps_per_interval$steps), 'interval']
 ```
 
-The 5-minute interval that, on average across all the days in the dataset, contains the maximum number of steps is `r int_maximum_number_steps`.  
+The 5-minute interval that, on average across all the days in the dataset, contains the **maximum number of steps** is `r int_maximum_number_steps`.  
 
 ## Imputing missing values
 
@@ -108,7 +114,6 @@ for (intv in ds_steps_per_interval$interval)
 
 ```{r}
 ds_no_na <- ddply(dataset_no_na, .(date), transform, totalstepsday = sum(steps, na.rm=T))
-bin_width <- round(range(ds_no_na$totalstepsday) / 30)[2]
 ggplot(ds_no_na) + 
     geom_histogram(aes(x = totalstepsday),colour = "darkgreen", fill = "white", binwidth = bin_width)  +
     xlab(label = 'Steps') +
@@ -120,7 +125,8 @@ mean_total_steps_per_day_no_na <- mean(ds_no_na$totalstepsday, na.rm = T)
 median_total_steps_per_day_no_na <- median(ds_no_na$totalstepsday, na.rm = T)
 
 ```` 
-4. The mean of the total number of steps taken per day is `r mean_total_steps_per_day_no_na` and the median is `r median_total_steps_per_day_no_na`. 
+4. The **mean** of the total number of steps taken per day is `r round(mean_total_steps_per_day_no_na,digits=2)` and the **median** is `r round(median_total_steps_per_day_no_na,digits=2)`.  
+In my case, the added values smoothed the distribution since I've used the average for each respective 5-minute interval. Thus, the mean and the median are also the same.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
