@@ -48,7 +48,7 @@ print(xt,type = 'html')
 ```
 
 <!-- html table generated in R 3.1.0 by xtable 1.7-3 package -->
-<!-- Mon Aug 18 10:49:30 2014 -->
+<!-- Fri Sep 05 14:51:27 2014 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> file </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> "steps","date","interval" </TD> </TR>
@@ -64,7 +64,7 @@ print(xt,type = 'html')
    </TABLE>
 As expected, being a .csv file, the file is  
 - character separated, *comma*  
-- as a header  
+- has a header  
 
 Looking at the file and given:  
 - **steps**: Number of steps taking in a 5-minute interval (missing values are coded as NA)  
@@ -82,7 +82,7 @@ print(xtable(tmp),include.rownames=F , type = 'html')
 ```
 
 <!-- html table generated in R 3.1.0 by xtable 1.7-3 package -->
-<!-- Mon Aug 18 10:49:30 2014 -->
+<!-- Fri Sep 05 14:51:27 2014 -->
 <TABLE border=1>
 <TR> <TH> Features </TH> <TH> Type </TH>  </TR>
   <TR> <TD> steps </TD> <TD> integer </TD> </TR>
@@ -179,7 +179,7 @@ mean_total_steps_per_day_no_na <- mean(ds_no_na$totalstepsday, na.rm = T)
 median_total_steps_per_day_no_na <- median(ds_no_na$totalstepsday, na.rm = T)
 ```
 4. The **mean** of the total number of steps taken per day is 10766.19 and the **median** is 10766.19.  
-In my case, the added values smoothed the distribution since I've used the average for each respective 5-minute interval. Thus, the mean and the median are also the same.
+In my case, the added values smoothed the distribution since I've used the average for each respective 5-minute interval. Thus, the mean and the median are now the same.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
